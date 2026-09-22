@@ -1,0 +1,39 @@
+[package]
+name = "dnscheck"
+version = "0.1.0"
+edition = "2021"
+authors = ["r3dg0d"]
+license = "MIT"
+description = "DNS privacy analyzer — inspect local DNS configuration for leaks and privacy issues"
+readme = "README.md"
+repository = "https://github.com/r3dg0d/dnscheck"
+keywords = ["dns", "privacy", "security", "cli", "network"]
+categories = ["command-line-utilities", "network-programming"]
+rust-version = "1.75"
+
+[[bin]]
+name = "dnscheck"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive", "env", "wrap_help"] }
+clap_complete = "4"
+directories = "5"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+ctrlc = "3"
+regex = "1"
+chrono = { version = "0.4", features = ["serde", "clock"] }
+
+[dev-dependencies]
+tempfile = "3"
+pretty_assertions = "1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
