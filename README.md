@@ -62,7 +62,10 @@ Exit codes: `0` success, `1` error, `2` usage, `130` Ctrl+C.
 
 - `/etc/resolv.conf` (nameservers, search, stub hints)
 - `resolvectl status` (DoT/DNSSEC/fallback/per-link)
-- NetworkManager via `nmcli` when available
+- NetworkManager via `nmcli` when available: labelled multiline fields preserve
+  indexed DNS entries and IPv6 colons; escaped connection names are read correctly
+  and details are selected by UUID. Failed detail queries stay visible in the
+  JSON inspection's `network_manager.raw_error`; failed stdout is not DNS evidence.
 - Mullvad via `mullvad` CLI when available
 - Interfaces (`/sys/class/net` + `ip addr`) for VPN-like names
 
