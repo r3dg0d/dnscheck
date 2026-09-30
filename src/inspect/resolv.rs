@@ -19,8 +19,7 @@ pub struct ResolvConf {
 
 pub fn parse_resolv_conf(path: impl AsRef<Path>) -> Result<ResolvConf> {
     let path = path.as_ref();
-    let text = fs::read_to_string(path)
-        .with_context(|| format!("reading {}", path.display()))?;
+    let text = fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
     Ok(parse_resolv_text(&text))
 }
 

@@ -160,7 +160,8 @@ pub fn analyze(insp: &DnsInspection) -> DetectionReport {
             id: "ipv6-dns-with-vpn".into(),
             severity: "info".into(),
             title: "IPv6 DNS configured alongside VPN".into(),
-            detail: "Verify IPv6 DNS goes through the tunnel; IPv6 leaks are a common VPN footgun.".into(),
+            detail: "Verify IPv6 DNS goes through the tunnel; IPv6 leaks are a common VPN footgun."
+                .into(),
             confidence: "low".into(),
         });
     }

@@ -20,17 +20,14 @@ pub struct Config {
 }
 
 fn default_probe_domains() -> Vec<String> {
-    vec![
-        "whoami.akamai.net".into(),
-        "o-o.myaddr.l.google.com".into(),
-    ]
+    vec!["whoami.akamai.net".into(), "o-o.myaddr.l.google.com".into()]
 }
 
 impl Config {
     pub fn load(explicit: Option<&Path>) -> Result<(Self, Option<PathBuf>)> {
         if let Some(p) = explicit {
-            let text = fs::read_to_string(p)
-                .with_context(|| format!("reading config {}", p.display()))?;
+            let text =
+                fs::read_to_string(p).with_context(|| format!("reading config {}", p.display()))?;
             let cfg: Config = serde_json::from_str(&text)
                 .with_context(|| format!("parsing config {}", p.display()))?;
             return Ok((cfg, Some(p.to_path_buf())));

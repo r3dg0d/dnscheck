@@ -63,7 +63,9 @@ pub fn parse_resolvectl_status(text: &str, status: &mut ResolvedStatus) {
 
     for line in text.lines() {
         let trimmed = line.trim();
-        if trimmed.starts_with("Link ") || (trimmed.starts_with("Interface ") && trimmed.contains('(')) {
+        if trimmed.starts_with("Link ")
+            || (trimmed.starts_with("Interface ") && trimmed.contains('('))
+        {
             flush_link(
                 status,
                 &mut current_link,

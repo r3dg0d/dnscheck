@@ -75,10 +75,7 @@ fn query_mullvad() -> MullvadDns {
             }
         });
 
-    let dns_out = Command::new("mullvad")
-        .args(["dns", "get"])
-        .output()
-        .ok();
+    let dns_out = Command::new("mullvad").args(["dns", "get"]).output().ok();
 
     let mut dns_servers = Vec::new();
     let mut notes = Vec::new();
@@ -116,9 +113,7 @@ fn query_mullvad() -> MullvadDns {
 
 fn which_bin(name: &str) -> bool {
     std::env::var_os("PATH")
-        .map(|paths| {
-            std::env::split_paths(&paths).any(|p| p.join(name).is_file())
-        })
+        .map(|paths| std::env::split_paths(&paths).any(|p| p.join(name).is_file()))
         .unwrap_or(false)
 }
 

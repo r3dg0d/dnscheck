@@ -78,4 +78,3 @@ pub fn run(cli: &Cli) -> Result<i32> {
         .any(|f| f.severity == "warning" || f.severity == "critical");
     Ok(0)
 }
-

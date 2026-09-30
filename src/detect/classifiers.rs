@@ -42,7 +42,11 @@ pub fn classify_resolver(addr: &str) -> ResolverClass {
     let addr = addr.trim();
     // Strip zone id / port if present
     let host = addr.split('%').next().unwrap_or(addr);
-    let host = host.split(']').next().unwrap_or(host).trim_start_matches('[');
+    let host = host
+        .split(']')
+        .next()
+        .unwrap_or(host)
+        .trim_start_matches('[');
     let host = if let Some((h, port)) = host.rsplit_once(':') {
         // IPv4:port vs IPv6
         if host.matches(':').count() == 1 && port.chars().all(|c| c.is_ascii_digit()) {
@@ -54,19 +58,13 @@ pub fn classify_resolver(addr: &str) -> ResolverClass {
         host
     };
 
-    if host == "127.0.0.53"
-        || host == "127.0.0.54"
-        || host == "::1"
-        || host.starts_with("127.")
-    {
+    if host == "127.0.0.53" || host == "127.0.0.54" || host == "::1" || host.starts_with("127.") {
         return ResolverClass::LoopbackStub;
     }
 
     if let Ok(ip) = host.parse::<std::net::Ipv4Addr>() {
         let o = ip.octets();
-        if o[0] == 10
-            || (o[0] == 172 && (16..=31).contains(&o[1]))
-            || (o[0] == 192 && o[1] == 168)
+        if o[0] == 10 || (o[0] == 172 && (16..=31).contains(&o[1])) || (o[0] == 192 && o[1] == 168)
         {
             return ResolverClass::Rfc1918;
         }

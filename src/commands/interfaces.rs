@@ -43,7 +43,12 @@ pub fn run(cli: &Cli) -> Result<i32> {
             println!();
             println!("systemd-resolved per-link DNS:");
             for l in &out.systemd_per_link {
-                println!("  {}:dns={} domains={}", l.link, l.dns.join(","), l.domains.join(","));
+                println!(
+                    "  {}:dns={} domains={}",
+                    l.link,
+                    l.dns.join(","),
+                    l.domains.join(",")
+                );
             }
         }
     }
